@@ -129,8 +129,8 @@ export default function News() {
               >
                 {i < articles.length - 1 && (
                   <div
-                    className="absolute top-0 w-px bg-[#1f1f1f]"
-                    style={{ right: "-16px", height: "581px" }}
+                    className="absolute w-px bg-[#cccccc]"
+                    style={{ right: "-16px", top: "-9999px", height: "99999px" }}
                   />
                 )}
                 <NewsCard image={article.image} text={article.text} />
