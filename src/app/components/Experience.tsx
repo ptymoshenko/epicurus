@@ -1,3 +1,8 @@
+const displayStyle = {
+  fontFamily: "var(--font-inter)",
+  fontSize: "min(8.5vw, 96px)",
+} as const;
+
 export default function Experience() {
   return (
     <section className="px-4 py-12 md:px-8 md:py-[120px]">
@@ -24,8 +29,8 @@ export default function Experience() {
             001
           </span>
           <p
-            className="font-light leading-[0.84] tracking-[-0.08em] text-black whitespace-nowrap text-[8.5vw] md:text-[96px]"
-            style={{ fontFamily: "var(--font-inter)" }}
+            className="font-light leading-[0.84] tracking-[-0.08em] text-black whitespace-nowrap text-center md:text-left"
+            style={displayStyle}
           >
             A creative director&nbsp;&nbsp;&nbsp;/
           </p>
@@ -39,16 +44,16 @@ export default function Experience() {
 
         {/* Row 2: Photographer (italic) */}
         <p
-          className="font-light italic leading-[0.84] tracking-[-0.08em] text-black whitespace-nowrap text-center md:text-left md:ml-[214px] text-[8.5vw] md:text-[96px]"
-          style={{ fontFamily: "var(--font-inter)" }}
+          className="font-light italic leading-[0.84] tracking-[-0.08em] text-black whitespace-nowrap text-center md:text-left md:ml-[14.9vw]"
+          style={displayStyle}
         >
           Photographer
         </p>
 
         {/* Row 3: Born & raised (& in Playfair italic) */}
         <p
-          className="font-light leading-[0.84] tracking-[-0.08em] text-black whitespace-nowrap text-center md:text-left md:ml-[610px] text-[8.5vw] md:text-[96px]"
-          style={{ fontFamily: "var(--font-inter)" }}
+          className="font-light leading-[0.84] tracking-[-0.08em] text-black whitespace-nowrap text-center md:text-left md:ml-[42.4vw]"
+          style={displayStyle}
         >
           Born{" "}
           <span
@@ -65,8 +70,8 @@ export default function Experience() {
 
         {/* Row 4: on the south side */}
         <p
-          className="font-light leading-[0.84] tracking-[-0.08em] text-black whitespace-nowrap text-center md:text-left text-[8.5vw] md:text-[96px]"
-          style={{ fontFamily: "var(--font-inter)" }}
+          className="font-light leading-[0.84] tracking-[-0.08em] text-black whitespace-nowrap text-center md:text-left"
+          style={displayStyle}
         >
           on the south side
         </p>
@@ -74,14 +79,14 @@ export default function Experience() {
         {/* Row 5: of chicago. + [ creative freelancer ] */}
         <div className="relative flex flex-col items-center md:block">
           <p
-            className="font-light italic leading-[0.84] tracking-[-0.08em] text-black whitespace-nowrap md:ml-[606px] text-[8.5vw] md:text-[96px]"
-            style={{ fontFamily: "var(--font-inter)" }}
+            className="font-light italic leading-[0.84] tracking-[-0.08em] text-black whitespace-nowrap md:ml-[42.1vw]"
+            style={displayStyle}
           >
             of chicago.
           </p>
           <p
             className="hidden md:block absolute text-[14px] leading-[1.1] text-[#1f1f1f] whitespace-nowrap"
-            style={{ fontFamily: "var(--font-geist-mono)", left: "1079px", top: "26px" }}
+            style={{ fontFamily: "var(--font-geist-mono)", left: "74.93vw", top: "26px" }}
           >
             [ creative freelancer ]
           </p>
