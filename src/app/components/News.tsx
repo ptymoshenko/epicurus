@@ -95,7 +95,7 @@ export default function News() {
   return (
     <section className="bg-[#f3f3f3]">
       {/* ── Desktop — horizontal Swiper with fading heading ── */}
-      <div className="hidden md:flex items-end overflow-hidden px-8 py-[120px] gap-0">
+      <div className="hidden md:flex items-end overflow-hidden px-8 py-[120px] gap-48">
         {/* Rotated heading — fades on scroll */}
         <div
           className="flex items-center justify-center w-[110px] h-[706px] shrink-0 transition-opacity duration-300"
@@ -121,12 +121,18 @@ export default function News() {
             onProgress={handleProgress}
             className="!overflow-visible"
           >
-            {articles.map((article) => (
+            {articles.map((article, i) => (
               <SwiperSlide
                 key={article.image}
                 style={{ width: "353px" }}
-                className={article.offsetDesktop ? "pt-[120px]" : "h-[581px]"}
+                className={`relative ${article.offsetDesktop ? "pt-[120px]" : "h-[581px]"}`}
               >
+                {i < articles.length - 1 && (
+                  <div
+                    className="absolute top-0 w-px bg-[#1f1f1f]"
+                    style={{ right: "-16px", height: "581px" }}
+                  />
+                )}
                 <NewsCard image={article.image} text={article.text} />
               </SwiperSlide>
             ))}
