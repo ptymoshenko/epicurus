@@ -3,7 +3,7 @@ export default function Footer() {
 
   return (
     <footer className="bg-black">
-      <div className="flex flex-col gap-12 px-4 pt-12 md:gap-[120px] md:px-8 md:pt-[48px]">
+      <div className="flex flex-col px-4 pt-12 md:px-8 md:pt-[48px]" style={{ gap: "clamp(48px, 8.33vw, 120px)" }}>
 
         {/* ── Top: Inquiry + Socials + Divider ── */}
         <div className="flex flex-col gap-12 md:gap-[48px]">
@@ -83,10 +83,7 @@ export default function Footer() {
               H.Studio
             </p>
             {/* [ Coded By Claude ] rotated */}
-            <div
-              className="absolute left-0 top-1/2 -translate-y-1/2 flex items-center justify-center w-[15px]"
-              style={{ height: "min(11.11vw, 160px)" }}
-            >
+            <div className="absolute left-0 top-1/2 -translate-y-1/2 flex items-center justify-center w-[15px] h-[160px]">
               <p
                 className="-rotate-90 whitespace-nowrap text-[14px] leading-[1.1] text-white uppercase"
                 style={{ fontFamily: "var(--font-geist-mono)" }}

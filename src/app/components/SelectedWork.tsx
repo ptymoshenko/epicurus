@@ -1,4 +1,22 @@
 import Image from "next/image";
+import Link from "next/link";
+import { sanityFetch } from "@/sanity/lib/live";
+import { urlFor } from "@/sanity/lib/image";
+import type { SanityImageSource } from "@sanity/image-url";
+
+interface SanityProject {
+  _id: string;
+  title: string;
+  slug: { current: string };
+  image: SanityImageSource;
+  tags: string[];
+  lightTags: boolean;
+  tall: boolean;
+}
+
+const PROJECTS_QUERY = `*[_type == "project"] | order(order asc) {
+  _id, title, slug, image, tags, lightTags, tall
+}`;
 
 function CornerBracket({ rotation = 0 }: { rotation?: 0 | 90 | 180 | 270 }) {
   const transform = rotation === 0 ? undefined : `rotate(${rotation}deg)`;
@@ -41,94 +59,44 @@ function ArrowIcon() {
   );
 }
 
-interface WorkItem {
-  title: string;
-  image: string;
-  tags: string[];
-  lightTags: boolean;
-  desktopHeight: string;
-}
-
-function WorkCard({ item }: { item: WorkItem }) {
+function WorkCard({ project }: { project: SanityProject }) {
+  const heightClass = project.tall ? "md:h-[744px]" : "md:h-[699px]";
   return (
-    <div className="flex flex-col gap-[10px] w-full">
-      {/* Image */}
-      <div
-        className={`relative w-full h-[390px] ${item.desktopHeight} overflow-hidden`}
-      >
+    <Link href={`/projects/${project.slug.current}`} className="flex flex-col gap-[10px] w-full group">
+      <div className={`relative w-full h-[390px] ${heightClass} overflow-hidden`}>
         <Image
-          src={item.image}
-          alt={item.title}
+          src={urlFor(project.image).width(800).url()}
+          alt={project.title}
           fill
-          className="object-cover"
+          className="object-cover transition-transform duration-500 group-hover:scale-[1.02]"
           sizes="(max-width: 768px) 100vw, 50vw"
         />
-        {/* Tags overlay */}
         <div className="absolute bottom-4 left-4 flex gap-3 items-center">
-          {item.tags.map((tag) => (
-            <Tag key={tag} label={tag} light={item.lightTags} />
+          {project.tags?.map((tag) => (
+            <Tag key={tag} label={tag} light={project.lightTags} />
           ))}
         </div>
       </div>
-
-      {/* Title + arrow */}
       <div className="flex items-center justify-between w-full">
         <p
           className="font-normal leading-[1.1] uppercase text-black tracking-[-0.04em] text-[24px] md:text-[36px] whitespace-nowrap"
           style={{ fontFamily: "var(--font-inter)" }}
         >
-          {item.title}
+          {project.title}
         </p>
         <ArrowIcon />
       </div>
-    </div>
+    </Link>
   );
 }
-
-const leftWorks: WorkItem[] = [
-  {
-    title: "Surfers Paradise",
-    image: "/images/work-1.png",
-    tags: ["Social Media", "Photography"],
-    lightTags: false,
-    desktopHeight: "md:h-[744px]",
-  },
-  {
-    title: "Cyberpunk Caffe",
-    image: "/images/work-2.png",
-    tags: ["Social Media", "Photography"],
-    lightTags: true,
-    desktopHeight: "md:h-[699px]",
-  },
-];
-
-const rightWorks: WorkItem[] = [
-  {
-    title: "Agency 976",
-    image: "/images/work-3.png",
-    tags: ["Social Media", "Photography"],
-    lightTags: true,
-    desktopHeight: "md:h-[699px]",
-  },
-  {
-    title: "Minimal Playground",
-    image: "/images/work-4.png",
-    tags: ["Social Media", "Photography"],
-    lightTags: false,
-    desktopHeight: "md:h-[744px]",
-  },
-];
 
 function ContactCta() {
   return (
     <div className="flex gap-3 items-center w-full md:w-[465px]">
-      {/* Left brackets */}
       <div className="flex flex-col justify-between self-stretch w-4 shrink-0">
         <CornerBracket rotation={0} />
         <CornerBracket rotation={270} />
       </div>
-
-      {/* Text + button */}
       <div className="flex-1 flex flex-col gap-[10px] py-3">
         <p
           className="text-[14px] italic leading-[1.3] tracking-[-0.04em] text-[#1f1f1f]"
@@ -144,8 +112,6 @@ function ContactCta() {
           Let&apos;s talk
         </button>
       </div>
-
-      {/* Right brackets */}
       <div className="flex flex-col justify-between self-stretch w-4 shrink-0">
         <CornerBracket rotation={90} />
         <CornerBracket rotation={180} />
@@ -154,15 +120,18 @@ function ContactCta() {
   );
 }
 
-export default function SelectedWork() {
+export default async function SelectedWork() {
+  const { data: projects } = await sanityFetch({ query: PROJECTS_QUERY }) as { data: SanityProject[] };
+
+  const mid = Math.ceil(projects.length / 2);
+  const leftProjects = projects.slice(0, mid);
+  const rightProjects = projects.slice(mid);
+
   return (
     <section className="px-4 py-12 md:px-8 md:py-20">
-      {/* Header */}
       <div className="flex flex-col gap-3 mb-8 md:mb-[61px]">
         <div className="w-full h-px bg-[#1f1f1f]" />
-
         <div className="flex items-start justify-between w-full">
-          {/* Heading + 004 */}
           <div className="flex gap-[10px] items-start">
             <div
               className="font-light leading-[0.86] tracking-[-0.08em] text-black uppercase text-[32px] md:text-[96px]"
@@ -178,8 +147,6 @@ export default function SelectedWork() {
               004
             </p>
           </div>
-
-          {/* [ portfolio ] — rotated on desktop, flat on mobile */}
           <p
             className="text-[14px] leading-[1.1] text-[#1f1f1f] uppercase md:hidden"
             style={{ fontFamily: "var(--font-geist-mono)" }}
@@ -199,26 +166,23 @@ export default function SelectedWork() {
 
       {/* Mobile: single column */}
       <div className="flex flex-col gap-6 md:hidden">
-        {[...leftWorks, ...rightWorks].map((item) => (
-          <WorkCard key={item.title} item={item} />
+        {projects.map((project) => (
+          <WorkCard key={project._id} project={project} />
         ))}
         <ContactCta />
       </div>
 
       {/* Desktop: two-column staggered grid */}
       <div className="hidden md:flex gap-6 items-end">
-        {/* Left column */}
         <div className="flex-1 flex flex-col gap-6">
-          {leftWorks.map((item) => (
-            <WorkCard key={item.title} item={item} />
+          {leftProjects.map((project) => (
+            <WorkCard key={project._id} project={project} />
           ))}
           <ContactCta />
         </div>
-
-        {/* Right column — offset top by 240px */}
         <div className="flex-1 flex flex-col gap-6 pt-[240px]">
-          {rightWorks.map((item) => (
-            <WorkCard key={item.title} item={item} />
+          {rightProjects.map((project) => (
+            <WorkCard key={project._id} project={project} />
           ))}
         </div>
       </div>
