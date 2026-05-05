@@ -7,11 +7,12 @@ import SelectedWork from "./components/SelectedWork";
 import Testimonials from "./components/Testimonials";
 import News from "./components/News";
 import Footer from "./components/Footer";
+import FooterParallaxWrapper from "@/components/FooterParallaxWrapper";
 
 export default function Home() {
   return (
     <>
-      <main>
+      <main className="overflow-clip">
         <Hero />
         <Experience />
         <About />
@@ -21,7 +22,9 @@ export default function Home() {
         <Testimonials />
         <News />
       </main>
-      <Footer />
+      <FooterParallaxWrapper>
+        <Footer />
+      </FooterParallaxWrapper>
     </>
   );
 }
