@@ -2,7 +2,7 @@ export default function Footer() {
   const socials = ["Facebook", "Instagram", "X.com", "LinkedIn"];
 
   return (
-    <footer className="bg-black">
+    <footer data-nav-theme="dark" className="bg-black">
       <div className="flex flex-col px-4 pt-12 md:px-8 md:pt-[48px]" style={{ gap: "clamp(48px, 8.33vw, 120px)" }}>
 
         {/* ── Top: Inquiry + Socials + Divider ── */}

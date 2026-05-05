@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Inter, Geist_Mono, Playfair_Display } from "next/font/google";
 import { SanityLive } from "@/sanity/lib/live";
+import SmoothScroll from "@/components/SmoothScroll";
+import Navbar from "@/components/Navbar";
 import "./globals.css";
 
 const inter = Inter({
@@ -35,6 +37,8 @@ export default function RootLayout({
       className={`${inter.variable} ${geistMono.variable} ${playfairDisplay.variable} h-full antialiased`}
     >
       <body className="min-h-full">
+        <SmoothScroll />
+        <Navbar />
         {children}
         <SanityLive />
       </body>

@@ -37,7 +37,7 @@ const services = [
 
 export default function Services() {
   return (
-    <section className="bg-black px-4 py-12 md:px-8 md:py-20">
+    <section data-nav-theme="dark" className="bg-black px-4 py-12 md:px-8 md:py-20">
       {/* [ SERVICES ] label */}
       <p
         className="text-[14px] uppercase leading-[1.1] text-white mb-12 md:mb-12"

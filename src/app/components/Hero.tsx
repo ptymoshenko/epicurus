@@ -1,65 +1,8 @@
-"use client";
-
 import Image from "next/image";
-import { useState } from "react";
-
-const NAV_LINKS = ["About", "Services", "Projects", "News", "Contact"];
 
 export default function Hero() {
-  const [menuOpen, setMenuOpen] = useState(false);
-
   return (
     <>
-      {/* Mobile full-screen menu overlay */}
-      {menuOpen && (
-        <div className="fixed inset-0 z-50 bg-white flex flex-col px-4 pt-6 pb-10">
-          <div className="flex items-center justify-between py-6">
-            <span
-              className="capitalize font-semibold text-[16px] tracking-[-0.04em] text-black"
-              style={{ fontFamily: "var(--font-inter)" }}
-            >
-              H.Studio
-            </span>
-            <button
-              onClick={() => setMenuOpen(false)}
-              aria-label="Close menu"
-              className="flex items-center justify-center size-6"
-            >
-              <svg viewBox="0 0 24 24" fill="none" className="size-6">
-                <path
-                  d="M18 6L6 18M6 6l12 12"
-                  stroke="black"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </button>
-          </div>
-
-          <nav className="flex flex-col gap-8 mt-10">
-            {NAV_LINKS.map((link) => (
-              <a
-                key={link}
-                href="#"
-                onClick={() => setMenuOpen(false)}
-                className="uppercase font-semibold text-[32px] tracking-[-0.04em] text-black leading-none"
-                style={{ fontFamily: "var(--font-inter)" }}
-              >
-                {link}
-              </a>
-            ))}
-          </nav>
-
-          <button
-            className="mt-auto self-start flex items-center justify-center bg-black text-white font-medium text-[14px] tracking-[-0.04em] uppercase px-4 py-3 rounded-full"
-            style={{ fontFamily: "var(--font-inter)" }}
-          >
-            Let&apos;s talk
-          </button>
-        </div>
-      )}
-
       <section className="relative h-screen overflow-hidden flex flex-col px-4 md:px-8">
 
         {/* Background photo — object-top on desktop shows chest/shoulders, center on mobile shows full body */}
@@ -81,42 +24,6 @@ export default function Hero() {
             WebkitMaskImage: "linear-gradient(to bottom, transparent 0%, black 40%)",
           }}
         />
-
-        {/* Navbar — z-10 to sit above the background layers */}
-        <div className="relative z-10 flex items-center justify-between w-full py-6 shrink-0">
-          <span
-            className="font-semibold text-[16px] tracking-[-0.04em] text-black"
-            style={{ fontFamily: "var(--font-inter)" }}
-          >
-            H.Studio
-          </span>
-
-          <nav
-            className="hidden md:flex items-center gap-14 uppercase font-semibold text-[16px] tracking-[-0.04em] text-black"
-            style={{ fontFamily: "var(--font-inter)" }}
-          >
-            {NAV_LINKS.map((link) => (
-              <a key={link} href="#" className="hover:opacity-60 transition-opacity">
-                {link}
-              </a>
-            ))}
-          </nav>
-
-          <button
-            className="hidden md:flex items-center justify-center bg-black text-white font-medium text-[14px] tracking-[-0.04em] uppercase px-4 py-3 rounded-full overflow-hidden"
-            style={{ fontFamily: "var(--font-inter)" }}
-          >
-            Let&apos;s talk
-          </button>
-
-          <button
-            className="md:hidden flex items-center justify-center"
-            onClick={() => setMenuOpen(true)}
-            aria-label="Open menu"
-          >
-            <Image src="/images/hamburger.svg" alt="" width={24} height={24} unoptimized />
-          </button>
-        </div>
 
         {/* Banner — flex-1 fills remaining space, content pushed to bottom on mobile */}
         <div className="flex-1 flex flex-col justify-end md:justify-start md:mt-[200px] pb-8 md:pb-0">
