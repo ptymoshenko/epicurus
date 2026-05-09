@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import Hero from "./components/Hero";
 import Experience from "./components/Experience";
 import About from "./components/About";
@@ -18,9 +19,13 @@ export default function Home() {
         <About />
         <PhotoBreak />
         <Services />
-        <SelectedWork />
+        <Suspense>
+          <SelectedWork />
+        </Suspense>
         <Testimonials />
-        <News />
+        <Suspense>
+          <News />
+        </Suspense>
       </main>
       <FooterParallaxWrapper>
         <Footer />
