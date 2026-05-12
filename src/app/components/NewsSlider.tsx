@@ -67,7 +67,13 @@ function NewsCard({ article }: { article: ArticleCard }) {
   );
 }
 
-export default function NewsSlider({ articles }: { articles: ArticleCard[] }) {
+export default function NewsSlider({
+  articles,
+  label,
+}: {
+  articles: ArticleCard[];
+  label?: string;
+}) {
   const [headingOpacity, setHeadingOpacity] = useState(1);
 
   const handleProgress = (swiper: SwiperType) => {
@@ -76,58 +82,112 @@ export default function NewsSlider({ articles }: { articles: ArticleCard[] }) {
 
   return (
     <>
-      {/* Desktop */}
-      <div className="hidden md:flex items-end overflow-hidden px-8 py-[120px] gap-48">
-        <div
-          className="flex items-center justify-center w-[110px] h-[706px] shrink-0 transition-opacity duration-300"
-          style={{ opacity: headingOpacity }}
-        >
-          <div className="-rotate-90 whitespace-nowrap">
-            <div
-              className="font-light leading-[0.86] tracking-[-0.08em] text-black uppercase text-[64px]"
-              style={{ fontFamily: "var(--font-inter)" }}
+      {/* Desktop — "Read more" variant */}
+      {label && (
+        <div className="hidden md:flex flex-col gap-[100px] px-8 pb-[72px] pt-px">
+          <div className="flex flex-col gap-3">
+            <div className="w-full h-px bg-[#cccccc]" />
+            <p
+              className="text-[14px] uppercase text-[#1f1f1f]"
+              style={{ fontFamily: "var(--font-geist-mono)" }}
             >
-              <p>Keep up with my latest</p>
-              <p>news &amp; achievements</p>
-            </div>
+              {label}
+            </p>
+          </div>
+          <div className="w-full min-w-0 overflow-hidden">
+            <Swiper
+              slidesPerView="auto"
+              spaceBetween={31}
+              grabCursor
+              className="!overflow-visible"
+            >
+              {articles.map((article, i) => {
+                const hasOffset = i % 2 === 0;
+                return (
+                  <SwiperSlide
+                    key={article._id}
+                    style={{ width: "384px" }}
+                    className={`relative ${hasOffset ? "pt-[120px]" : "h-[581px]"}`}
+                  >
+                    {/* Left divider — 31px gap between line and card content */}
+                    <div
+                      className="absolute w-px bg-[#cccccc]"
+                      style={{ left: 0, top: 0, height: "706px" }}
+                    />
+                    <div style={{ paddingLeft: "31px", height: "100%" }}>
+                      <NewsCard article={article} />
+                    </div>
+                  </SwiperSlide>
+                );
+              })}
+            </Swiper>
           </div>
         </div>
-        <div className="flex-1 min-w-0">
-          <Swiper
-            slidesPerView="auto"
-            spaceBetween={31}
-            grabCursor
-            onProgress={handleProgress}
-            className="!overflow-visible"
+      )}
+
+      {/* Desktop — homepage variant */}
+      {!label && (
+        <div className="hidden md:flex items-end overflow-hidden px-8 py-[120px] gap-48">
+          <div
+            className="flex items-center justify-center w-[110px] h-[706px] shrink-0 transition-opacity duration-300"
+            style={{ opacity: headingOpacity }}
           >
-            {articles.map((article, i) => (
-              <SwiperSlide
-                key={article._id}
-                style={{ width: "353px" }}
-                className={`relative ${article.offsetDesktop ? "pt-[120px]" : "h-[581px]"}`}
+            <div className="-rotate-90 whitespace-nowrap">
+              <div
+                className="font-light leading-[0.86] tracking-[-0.08em] text-black uppercase text-[64px]"
+                style={{ fontFamily: "var(--font-inter)" }}
               >
-                {i < articles.length - 1 && (
-                  <div
-                    className="absolute w-px bg-[#cccccc]"
-                    style={{ right: "-16px", top: "0", height: "706px" }}
-                  />
-                )}
-                <NewsCard article={article} />
-              </SwiperSlide>
-            ))}
-          </Swiper>
+                <p>Keep up with my latest</p>
+                <p>news &amp; achievements</p>
+              </div>
+            </div>
+          </div>
+          <div className="flex-1 min-w-0 overflow-hidden">
+            <Swiper
+              slidesPerView="auto"
+              spaceBetween={31}
+              grabCursor
+              onProgress={handleProgress}
+              className="!overflow-visible"
+            >
+              {articles.map((article, i) => (
+                <SwiperSlide
+                  key={article._id}
+                  style={{ width: "353px" }}
+                  className={`relative ${article.offsetDesktop ? "pt-[120px]" : "h-[581px]"}`}
+                >
+                  {i < articles.length - 1 && (
+                    <div
+                      className="absolute w-px bg-[#cccccc]"
+                      style={{ right: "-16px", top: "0", height: "706px" }}
+                    />
+                  )}
+                  <NewsCard article={article} />
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          </div>
         </div>
-      </div>
+      )}
 
       {/* Mobile */}
       <div className="md:hidden overflow-x-hidden">
         <div className="px-4 py-16 flex flex-col gap-8">
-          <p
-            className="font-light text-[32px] leading-[0.86] tracking-[-0.08em] text-black uppercase"
-            style={{ fontFamily: "var(--font-inter)" }}
-          >
-            Keep up with my latest news &amp; achievements
-          </p>
+          {label ? (
+            <p
+              className="text-[14px] uppercase text-[#1f1f1f]"
+              style={{ fontFamily: "var(--font-geist-mono)" }}
+            >
+              {label}
+            </p>
+          ) : (
+            <p
+              className="font-light text-[32px] leading-[0.86] tracking-[-0.08em] text-black uppercase"
+              style={{ fontFamily: "var(--font-inter)" }}
+            >
+              Keep up with my latest news &amp; achievements
+            </p>
+          )}
           <Swiper
             slidesPerView="auto"
             spaceBetween={16}

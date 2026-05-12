@@ -26,14 +26,12 @@ export const articleType = defineType({
       name: 'image',
       type: 'image',
       options: { hotspot: true },
-      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: 'excerpt',
       type: 'text',
       rows: 3,
       description: 'Short text shown on the news card',
-      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: 'offsetDesktop',
