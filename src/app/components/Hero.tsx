@@ -94,17 +94,17 @@ export default function Hero() {
 
             {/* Desktop: Harvey left, Specter right on the same baseline */}
             <div className="hidden lg:flex w-full items-end">
-              <div ref={leftGroupDesktopRef} className="flex flex-col shrink-0">
+              <div ref={leftGroupDesktopRef} className="flex flex-col shrink-0 mix-blend-overlay">
                 <div className="pl-[4px] mb-[-12px]">
                   <p
-                    className="font-normal text-[14px] text-white uppercase leading-[1.1] mix-blend-overlay whitespace-nowrap"
+                    className="font-normal text-[14px] text-white uppercase leading-[1.1] whitespace-nowrap"
                     style={{ fontFamily: "var(--font-geist-mono)" }}
                   >
                     [ Hello i&apos;m ]
                   </p>
                 </div>
                 <span
-                  className="font-medium text-white uppercase mix-blend-overlay whitespace-nowrap"
+                  className="font-medium text-white uppercase whitespace-nowrap"
                   style={{
                     fontFamily: "var(--font-inter)",
                     fontSize: "11vw",
@@ -135,17 +135,17 @@ export default function Hero() {
 
             {/* Mobile: Hello I'm + Harvey group slides left, Specter slides right */}
             <div className="lg:hidden flex flex-col w-full">
-              <div ref={leftGroupMobileRef} className="flex flex-col">
+              <div ref={leftGroupMobileRef} className="flex flex-col mix-blend-overlay">
                 <div className="mb-[8px]">
                   <p
-                    className="font-normal text-[14px] text-white uppercase leading-[1.1] mix-blend-overlay whitespace-nowrap"
+                    className="font-normal text-[14px] text-white uppercase leading-[1.1] whitespace-nowrap"
                     style={{ fontFamily: "var(--font-geist-mono)" }}
                   >
                     [ Hello i&apos;m ]
                   </p>
                 </div>
                 <p
-                  className="font-medium text-white uppercase mix-blend-overlay leading-[0.84] w-full"
+                  className="font-medium text-white uppercase leading-[0.84] w-full"
                   style={{
                     fontFamily: "var(--font-inter)",
                     fontSize: "22vw",
