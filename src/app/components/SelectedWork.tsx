@@ -139,8 +139,8 @@ export default async function SelectedWork() {
               className="font-light leading-[0.86] tracking-[-0.08em] text-black uppercase text-[32px] md:text-[96px]"
               style={{ fontFamily: "var(--font-inter)" }}
             >
-              <HeadingReveal theme="#1f1f1f">Selected</HeadingReveal>
-              <HeadingReveal theme="#1f1f1f" className="italic">Work</HeadingReveal>
+              <HeadingReveal theme="#07261E">Selected</HeadingReveal>
+              <HeadingReveal theme="#07261E" className="italic">Work</HeadingReveal>
             </div>
             <p
               className="text-[14px] leading-[1.1] text-[#1f1f1f] pt-1"

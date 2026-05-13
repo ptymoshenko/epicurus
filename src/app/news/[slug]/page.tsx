@@ -135,7 +135,7 @@ export default async function ArticlePage(props: PageProps<"/news/[slug]">) {
 
         <HeadingReveal
           as="h1"
-          theme="#1f1f1f"
+          theme="#07261E"
           style={{
             fontFamily: "var(--font-inter)",
             fontSize: "80px",

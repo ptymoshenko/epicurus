@@ -103,7 +103,7 @@ export default function About() {
             </div>
 
             <HeadingReveal
-              theme="#1f1f1f"
+              theme="#07261E"
               scrollStart="top 85%"
               className="flex-1 font-normal leading-[1.3] text-[14px] tracking-[-0.04em] text-[#1f1f1f] py-3"
               style={{ fontFamily: "var(--font-inter)" }}

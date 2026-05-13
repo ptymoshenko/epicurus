@@ -31,7 +31,7 @@ export default function Experience() {
             001
           </span>
           <HeadingReveal
-            theme="#1f1f1f"
+            theme="#07261E"
             className="font-light leading-[0.84] tracking-[-0.08em] text-black whitespace-nowrap text-center md:text-left"
             style={displayStyle}
           >
@@ -47,7 +47,7 @@ export default function Experience() {
 
         {/* Row 2: Photographer (italic) */}
         <HeadingReveal
-          theme="#1f1f1f"
+          theme="#07261E"
           className="font-light italic leading-[0.84] tracking-[-0.08em] text-black whitespace-nowrap text-center md:text-left md:ml-[14.9vw]"
           style={displayStyle}
         >
@@ -56,7 +56,7 @@ export default function Experience() {
 
         {/* Row 3: Born & raised (& in Playfair italic) */}
         <HeadingReveal
-          theme="#1f1f1f"
+          theme="#07261E"
           className="font-light leading-[0.84] tracking-[-0.08em] text-black whitespace-nowrap text-center md:text-left md:ml-[42.4vw]"
           style={displayStyle}
         >
@@ -75,7 +75,7 @@ export default function Experience() {
 
         {/* Row 4: on the south side */}
         <HeadingReveal
-          theme="#1f1f1f"
+          theme="#07261E"
           className="font-light leading-[0.84] tracking-[-0.08em] text-black whitespace-nowrap text-center md:text-left"
           style={displayStyle}
         >
@@ -85,7 +85,7 @@ export default function Experience() {
         {/* Row 5: of chicago. + [ creative freelancer ] */}
         <div className="relative flex flex-col items-center md:block">
           <HeadingReveal
-            theme="#1f1f1f"
+            theme="#07261E"
             className="font-light italic leading-[0.84] tracking-[-0.08em] text-black whitespace-nowrap md:ml-[42.1vw]"
             style={displayStyle}
           >

@@ -95,7 +95,7 @@ export default function Testimonials() {
         {/* Big "TESTIMONIALS" text — centred, behind cards */}
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
           <HeadingReveal
-            theme="#1f1f1f"
+            theme="#07261E"
             className="font-normal uppercase text-black text-center leading-[1.1] whitespace-nowrap"
             style={{
               fontFamily: "var(--font-inter)",
@@ -123,7 +123,7 @@ export default function Testimonials() {
       <div className="md:hidden overflow-x-hidden">
       <div className="px-4 py-16">
         <HeadingReveal
-          theme="#1f1f1f"
+          theme="#07261E"
           className="font-medium text-[64px] leading-[0.8] tracking-[-0.07em] text-black text-center capitalize mb-8"
           style={{ fontFamily: "var(--font-inter)" }}
         >

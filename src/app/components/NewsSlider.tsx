@@ -59,7 +59,7 @@ function NewsCard({ article }: { article: ArticleCard }) {
         />
       </ImageReveal>
       <HeadingReveal
-        theme="#1f1f1f"
+        theme="#07261E"
         className="text-[14px] leading-[1.3] tracking-[-0.04em] text-[#1f1f1f] flex-1"
         style={{ fontFamily: "var(--font-inter)" }}
       >

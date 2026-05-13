@@ -12,11 +12,11 @@ const colorMap: Record<string, string> = {
   white: "#FFFFFF",
 };
 
-const directionMap: Record<string, { prop: string; origin: string }> = {
-  right: { prop: "scaleX", origin: "right center" },
-  left:  { prop: "scaleX", origin: "left center" },
-  up:    { prop: "scaleY", origin: "center top" },
-  down:  { prop: "scaleY", origin: "center bottom" },
+const directionMap: Record<string, { from: string; to: string }> = {
+  right: { from: "inset(0% 0% 0% 0%)",   to: "inset(0% 0% 0% 100%)" },
+  left:  { from: "inset(0% 0% 0% 0%)",   to: "inset(0% 100% 0% 0%)" },
+  up:    { from: "inset(0% 0% 0% 0%)",   to: "inset(0% 0% 100% 0%)" },
+  down:  { from: "inset(0% 0% 0% 0%)",   to: "inset(100% 0% 0% 0%)" },
 };
 
 interface Props {
@@ -74,21 +74,18 @@ export default function HeadingReveal({
         el.querySelectorAll(".highlight-marker-bar").forEach((b: Element) => b.remove());
 
         const lines: HTMLElement[] = self.lines;
-        const timeline = gsap.timeline({
-          paused: true,
-          onComplete: () => lines.forEach((l) => { l.style.overflow = ""; }),
-        });
+        const timeline = gsap.timeline({ paused: true });
 
         lines.forEach((line, i) => {
-          gsap.set(line, { position: "relative", overflow: "hidden" });
+          gsap.set(line, { position: "relative" });
 
           const bar = document.createElement("div");
           bar.className = "highlight-marker-bar";
-          Object.assign(bar.style, { backgroundColor: color, transformOrigin: dirConfig.origin });
+          Object.assign(bar.style, { backgroundColor: color, clipPath: dirConfig.from });
           line.appendChild(bar);
 
           const idx = staggerStart === "end" ? lines.length - 1 - i : i;
-          timeline.to(bar, { [dirConfig.prop]: 0, duration: 0.6, ease: "power3.inOut" }, idx * stagger);
+          timeline.to(bar, { clipPath: dirConfig.to, duration: 0.6, ease: "power3.inOut" }, idx * stagger);
         });
 
         gsap.set(el, { autoAlpha: 1 });

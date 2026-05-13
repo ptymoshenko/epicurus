@@ -55,7 +55,7 @@ export default function Services() {
         style={{ fontFamily: "var(--font-inter)" }}
       >
         <span>[4]</span>
-        <HeadingReveal theme="white">Deliverables</HeadingReveal>
+        <HeadingReveal theme="#07261E">Deliverables</HeadingReveal>
       </div>
 
       {/* Service list */}
@@ -75,7 +75,7 @@ export default function Services() {
             <div className="flex flex-col gap-4 md:flex-row md:justify-between md:items-start md:gap-6 mt-1">
               {/* Service name */}
               <HeadingReveal
-                theme="white"
+                theme="#07261E"
                 className="font-bold italic md:font-light uppercase text-white text-[36px] leading-[1.1] tracking-[-0.04em] whitespace-nowrap"
                 style={{ fontFamily: "var(--font-inter)" }}
               >
@@ -86,7 +86,7 @@ export default function Services() {
               <div className="flex flex-col gap-4 md:flex-row md:items-start md:gap-6">
                 <HeadingReveal
                   as="p"
-                  theme="white"
+                  theme="#07261E"
                   className="text-[14px] leading-[1.3] tracking-[-0.04em] text-white md:w-[393px]"
                   style={{ fontFamily: "var(--font-inter)" }}
                 >
