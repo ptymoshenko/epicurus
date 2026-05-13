@@ -1,4 +1,7 @@
 import Image from "next/image";
+import HeadingReveal from "@/components/HeadingReveal";
+import LineReveal from "@/components/LineReveal";
+import ImageReveal from "@/components/ImageReveal";
 
 const services = [
   {
@@ -52,7 +55,7 @@ export default function Services() {
         style={{ fontFamily: "var(--font-inter)" }}
       >
         <span>[4]</span>
-        <span>Deliverables</span>
+        <HeadingReveal theme="white">Deliverables</HeadingReveal>
       </div>
 
       {/* Service list */}
@@ -66,29 +69,32 @@ export default function Services() {
             >
               {service.number}
             </p>
-            <div className="w-full h-px bg-white" />
+            <LineReveal />
 
             {/* Item body — desktop: row; mobile: column */}
             <div className="flex flex-col gap-4 md:flex-row md:justify-between md:items-start md:gap-6 mt-1">
               {/* Service name */}
-              <p
+              <HeadingReveal
+                theme="white"
                 className="font-bold italic md:font-light uppercase text-white text-[36px] leading-[1.1] tracking-[-0.04em] whitespace-nowrap"
                 style={{ fontFamily: "var(--font-inter)" }}
               >
                 {service.name}
-              </p>
+              </HeadingReveal>
 
               {/* Description + image — desktop: row; mobile: column */}
               <div className="flex flex-col gap-4 md:flex-row md:items-start md:gap-6">
-                <p
+                <HeadingReveal
+                  as="p"
+                  theme="white"
                   className="text-[14px] leading-[1.3] tracking-[-0.04em] text-white md:w-[393px]"
                   style={{ fontFamily: "var(--font-inter)" }}
                 >
                   {service.description}
-                </p>
+                </HeadingReveal>
 
                 {/* Image */}
-                <div className="relative w-full aspect-square md:w-[151px] md:h-[151px] md:aspect-auto shrink-0">
+                <ImageReveal className="w-full aspect-square md:w-[151px] md:h-[151px] md:aspect-auto shrink-0">
                   <Image
                     src={service.image}
                     alt={service.imageAlt}
@@ -96,7 +102,7 @@ export default function Services() {
                     className="object-cover"
                     sizes="(max-width: 768px) 100vw, 151px"
                   />
-                </div>
+                </ImageReveal>
               </div>
             </div>
           </div>

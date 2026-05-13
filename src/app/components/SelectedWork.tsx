@@ -1,4 +1,6 @@
 import Image from "next/image";
+import HeadingReveal from "@/components/HeadingReveal";
+import ImageReveal from "@/components/ImageReveal";
 import Link from "next/link";
 import { sanityFetch } from "@/sanity/lib/live";
 import { urlFor } from "@/sanity/lib/image";
@@ -63,7 +65,7 @@ function WorkCard({ project }: { project: SanityProject }) {
   const heightClass = project.tall ? "md:h-[744px]" : "md:h-[699px]";
   return (
     <Link href={`/projects/${project.slug.current}`} className="flex flex-col gap-[10px] w-full group">
-      <div className={`relative w-full h-[390px] ${heightClass} overflow-hidden`}>
+      <ImageReveal className={`w-full h-[390px] ${heightClass}`}>
         <Image
           src={urlFor(project.image).width(800).url()}
           alt={project.title}
@@ -76,7 +78,7 @@ function WorkCard({ project }: { project: SanityProject }) {
             <Tag key={tag} label={tag} light={project.lightTags} />
           ))}
         </div>
-      </div>
+      </ImageReveal>
       <div className="flex items-center justify-between w-full">
         <p
           className="font-normal leading-[1.1] uppercase text-black tracking-[-0.04em] text-[24px] md:text-[36px] whitespace-nowrap"
@@ -137,8 +139,8 @@ export default async function SelectedWork() {
               className="font-light leading-[0.86] tracking-[-0.08em] text-black uppercase text-[32px] md:text-[96px]"
               style={{ fontFamily: "var(--font-inter)" }}
             >
-              <p>Selected</p>
-              <p className="italic">Work</p>
+              <HeadingReveal theme="#1f1f1f">Selected</HeadingReveal>
+              <HeadingReveal theme="#1f1f1f" className="italic">Work</HeadingReveal>
             </div>
             <p
               className="text-[14px] leading-[1.1] text-[#1f1f1f] pt-1"

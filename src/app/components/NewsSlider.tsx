@@ -6,6 +6,8 @@ import type { Swiper as SwiperType } from "swiper";
 import "swiper/css";
 import Image from "next/image";
 import Link from "next/link";
+import HeadingReveal from "@/components/HeadingReveal";
+import ImageReveal from "@/components/ImageReveal";
 
 export interface ArticleCard {
   _id: string;
@@ -47,7 +49,7 @@ function ReadMoreLink({ href }: { href: string }) {
 function NewsCard({ article }: { article: ArticleCard }) {
   return (
     <div className="flex flex-col gap-4 w-full h-full">
-      <div className="relative w-full h-[398px] md:h-[469px] shrink-0">
+      <ImageReveal className="w-full h-[398px] md:h-[469px] shrink-0">
         <Image
           src={article.imageUrl}
           alt={article.title}
@@ -55,13 +57,14 @@ function NewsCard({ article }: { article: ArticleCard }) {
           className="object-cover"
           sizes="(max-width: 768px) 300px, 353px"
         />
-      </div>
-      <p
+      </ImageReveal>
+      <HeadingReveal
+        theme="#1f1f1f"
         className="text-[14px] leading-[1.3] tracking-[-0.04em] text-[#1f1f1f] flex-1"
         style={{ fontFamily: "var(--font-inter)" }}
       >
         {article.excerpt}
-      </p>
+      </HeadingReveal>
       <ReadMoreLink href={`/news/${article.slug}`} />
     </div>
   );

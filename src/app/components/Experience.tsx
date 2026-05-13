@@ -1,3 +1,5 @@
+import HeadingReveal from "@/components/HeadingReveal";
+
 const displayStyle = {
   fontFamily: "var(--font-inter)",
   fontSize: "min(8.5vw, 96px)",
@@ -28,12 +30,13 @@ export default function Experience() {
           >
             001
           </span>
-          <p
+          <HeadingReveal
+            theme="#1f1f1f"
             className="font-light leading-[0.84] tracking-[-0.08em] text-black whitespace-nowrap text-center md:text-left"
             style={displayStyle}
           >
             A creative director&nbsp;&nbsp;&nbsp;/
-          </p>
+          </HeadingReveal>
           <span
             className="hidden md:block text-[14px] leading-[1.1] text-[#1f1f1f] shrink-0 pt-1"
             style={{ fontFamily: "var(--font-geist-mono)" }}
@@ -43,15 +46,17 @@ export default function Experience() {
         </div>
 
         {/* Row 2: Photographer (italic) */}
-        <p
+        <HeadingReveal
+          theme="#1f1f1f"
           className="font-light italic leading-[0.84] tracking-[-0.08em] text-black whitespace-nowrap text-center md:text-left md:ml-[14.9vw]"
           style={displayStyle}
         >
           Photographer
-        </p>
+        </HeadingReveal>
 
         {/* Row 3: Born & raised (& in Playfair italic) */}
-        <p
+        <HeadingReveal
+          theme="#1f1f1f"
           className="font-light leading-[0.84] tracking-[-0.08em] text-black whitespace-nowrap text-center md:text-left md:ml-[42.4vw]"
           style={displayStyle}
         >
@@ -66,24 +71,26 @@ export default function Experience() {
             &amp;
           </span>
           {" "}raised
-        </p>
+        </HeadingReveal>
 
         {/* Row 4: on the south side */}
-        <p
+        <HeadingReveal
+          theme="#1f1f1f"
           className="font-light leading-[0.84] tracking-[-0.08em] text-black whitespace-nowrap text-center md:text-left"
           style={displayStyle}
         >
           on the south side
-        </p>
+        </HeadingReveal>
 
         {/* Row 5: of chicago. + [ creative freelancer ] */}
         <div className="relative flex flex-col items-center md:block">
-          <p
+          <HeadingReveal
+            theme="#1f1f1f"
             className="font-light italic leading-[0.84] tracking-[-0.08em] text-black whitespace-nowrap md:ml-[42.1vw]"
             style={displayStyle}
           >
             of chicago.
-          </p>
+          </HeadingReveal>
           <p
             className="hidden md:block absolute text-[14px] leading-[1.1] text-[#1f1f1f] whitespace-nowrap"
             style={{ fontFamily: "var(--font-geist-mono)", left: "74.93vw", top: "26px" }}

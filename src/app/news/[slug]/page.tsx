@@ -7,6 +7,8 @@ import { urlFor } from "@/sanity/lib/image";
 import type { SanityImageSource } from "@sanity/image-url";
 import type { PortableTextBlock } from "sanity";
 import NewsSlider from "@/app/components/NewsSlider";
+import HeadingReveal from "@/components/HeadingReveal";
+import ImageReveal from "@/components/ImageReveal";
 import type { ArticleCard } from "@/app/components/NewsSlider";
 
 interface Article {
@@ -131,7 +133,9 @@ export default async function ArticlePage(props: PageProps<"/news/[slug]">) {
           </p>
         )}
 
-        <h1
+        <HeadingReveal
+          as="h1"
+          theme="#1f1f1f"
           style={{
             fontFamily: "var(--font-inter)",
             fontSize: "80px",
@@ -144,10 +148,10 @@ export default async function ArticlePage(props: PageProps<"/news/[slug]">) {
           }}
         >
           {article.title}
-        </h1>
+        </HeadingReveal>
 
         {article.image && (
-          <div style={{ position: "relative", width: "100%", height: "469px" }}>
+          <ImageReveal style={{ width: "100%", height: "469px" }}>
             <Image
               src={urlFor(article.image).width(1200).url()}
               alt={article.title}
@@ -155,7 +159,7 @@ export default async function ArticlePage(props: PageProps<"/news/[slug]">) {
               className="object-cover"
               priority
             />
-          </div>
+          </ImageReveal>
         )}
       </div>
 

@@ -1,4 +1,12 @@
+"use client";
+
 import Image from "next/image";
+import { useRef, useEffect } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import HeadingReveal from "@/components/HeadingReveal";
+
+gsap.registerPlugin(ScrollTrigger);
 
 function CornerBracket({ rotation = 0 }: { rotation?: 0 | 90 | 180 | 270 }) {
   const transform =
@@ -24,6 +32,34 @@ function CornerBracket({ rotation = 0 }: { rotation?: 0 | 90 | 180 | 270 }) {
 }
 
 export default function About() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const overlayRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const container = containerRef.current;
+    const overlay = overlayRef.current;
+    if (!container || !overlay) return;
+
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        overlay,
+        { clipPath: "inset(0 0% 0 0%)" },
+        {
+          clipPath: "inset(0 0% 0 100%)",
+          duration: 1.2,
+          ease: "power3.inOut",
+          scrollTrigger: {
+            trigger: container,
+            start: "top 75%",
+            once: true,
+          },
+        }
+      );
+    });
+
+    return () => ctx.revert();
+  }, []);
+
   return (
     <section className="px-4 py-12 md:px-8 md:py-20">
       {/* Divider */}
@@ -61,21 +97,20 @@ export default function About() {
 
           {/* Bio paragraph with corner brackets */}
           <div className="flex items-center gap-3 flex-1">
-            {/* Left brackets (top + bottom) */}
             <div className="flex flex-col justify-between self-stretch w-4 shrink-0">
               <CornerBracket rotation={0} />
               <CornerBracket rotation={270} />
             </div>
 
-            {/* Paragraph */}
-            <p
+            <HeadingReveal
+              theme="#1f1f1f"
+              scrollStart="top 85%"
               className="flex-1 font-normal leading-[1.3] text-[14px] tracking-[-0.04em] text-[#1f1f1f] py-3"
               style={{ fontFamily: "var(--font-inter)" }}
             >
               Placeholder paragraph one. This is where you introduce yourself — your background, your passion for your craft, and what drives you creatively. Two to three sentences work best here. Placeholder paragraph two. Here you can describe your technical approach, how you collaborate with clients, or what sets your work apart from others in your field.
-            </p>
+            </HeadingReveal>
 
-            {/* Right brackets (top + bottom) */}
             <div className="flex flex-col justify-between self-stretch w-4 shrink-0">
               <CornerBracket rotation={90} />
               <CornerBracket rotation={180} />
@@ -90,13 +125,22 @@ export default function About() {
             >
               002
             </p>
-            {/* Desktop: fixed 436×614, Mobile: full-width with aspect ratio */}
-            <div className="relative w-full md:w-[436px] aspect-[422/594] md:aspect-auto md:h-[614px]">
+
+            {/* Image container with green overlay */}
+            <div
+              ref={containerRef}
+              className="relative w-full md:w-[436px] aspect-[422/594] md:aspect-auto md:h-[614px] overflow-hidden"
+            >
               <Image
                 src="/images/about-portfolio.png"
                 alt="Portfolio"
                 fill
                 className="object-cover"
+              />
+              <div
+                ref={overlayRef}
+                className="absolute inset-0"
+                style={{ backgroundColor: "#07261E" }}
               />
             </div>
           </div>

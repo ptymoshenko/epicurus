@@ -1,6 +1,7 @@
 "use client";
 
 import { Swiper, SwiperSlide } from "swiper/react";
+import HeadingReveal from "@/components/HeadingReveal";
 import "swiper/css";
 import Image from "next/image";
 
@@ -93,7 +94,8 @@ export default function Testimonials() {
       <div className="hidden md:block relative min-h-[900px] px-8 py-[120px] overflow-hidden">
         {/* Big "TESTIMONIALS" text — centred, behind cards */}
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-          <p
+          <HeadingReveal
+            theme="#1f1f1f"
             className="font-normal uppercase text-black text-center leading-[1.1] whitespace-nowrap"
             style={{
               fontFamily: "var(--font-inter)",
@@ -102,7 +104,7 @@ export default function Testimonials() {
             }}
           >
             Testimonials
-          </p>
+          </HeadingReveal>
         </div>
 
         {/* Scattered cards */}
@@ -120,12 +122,13 @@ export default function Testimonials() {
       {/* ── Mobile ── */}
       <div className="md:hidden overflow-x-hidden">
       <div className="px-4 py-16">
-        <p
+        <HeadingReveal
+          theme="#1f1f1f"
           className="font-medium text-[64px] leading-[0.8] tracking-[-0.07em] text-black text-center capitalize mb-8"
           style={{ fontFamily: "var(--font-inter)" }}
         >
           Testimonials
-        </p>
+        </HeadingReveal>
 
         <Swiper
           slidesPerView="auto"

@@ -18,6 +18,24 @@ body {
   font-family: var(--font-inter), Arial, sans-serif;
 }
 
+/* Highlight Marker Text Reveal — Osmo Supply */
+[data-highlight-marker-reveal] {
+  visibility: hidden;
+}
+
+[data-highlight-marker-reveal] .highlight-marker-line {
+  width: auto;
+  display: inline-block !important;
+  margin: -0.055em 0px;
+}
+
+.highlight-marker-bar {
+  position: absolute;
+  inset: -0.055em 0px;
+  z-index: 1;
+  pointer-events: none;
+}
+
 .progressive-blur {
   position: fixed;
   top: 0;
