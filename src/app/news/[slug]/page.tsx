@@ -6,6 +6,8 @@ import { client } from "@/sanity/lib/client";
 import { urlFor } from "@/sanity/lib/image";
 import type { SanityImageSource } from "@sanity/image-url";
 import type { PortableTextBlock } from "sanity";
+import NewsSlider from "@/app/components/NewsSlider";
+import type { ArticleCard } from "@/app/components/NewsSlider";
 
 interface Article {
   title: string;
@@ -15,8 +17,21 @@ interface Article {
   body: PortableTextBlock[];
 }
 
+interface RelatedArticle {
+  _id: string;
+  title: string;
+  slug: { current: string };
+  image: SanityImageSource;
+  excerpt: string;
+  offsetDesktop: boolean;
+}
+
 const ARTICLE_QUERY = `*[_type == "article" && slug.current == $slug][0] {
   title, publishedAt, image, excerpt, body
+}`;
+
+const RELATED_QUERY = `*[_type == "article" && slug.current != $slug && defined(image)] | order(publishedAt desc) [0...8] {
+  _id, title, slug, image, excerpt, offsetDesktop
 }`;
 
 export async function generateStaticParams() {
@@ -28,9 +43,21 @@ export async function generateStaticParams() {
 
 export default async function ArticlePage(props: PageProps<"/news/[slug]">) {
   const { slug } = await props.params;
-  const article: Article | null = await client.fetch(ARTICLE_QUERY, { slug });
+  const [article, relatedRaw]: [Article | null, RelatedArticle[]] = await Promise.all([
+    client.fetch(ARTICLE_QUERY, { slug }),
+    client.fetch(RELATED_QUERY, { slug }),
+  ]);
 
   if (!article) notFound();
+
+  const related: ArticleCard[] = relatedRaw.map((a) => ({
+    _id: a._id,
+    title: a.title,
+    slug: a.slug.current,
+    imageUrl: urlFor(a.image).width(700).url(),
+    excerpt: a.excerpt ?? "",
+    offsetDesktop: a.offsetDesktop ?? false,
+  }));
 
   const date = article.publishedAt
     ? new Date(article.publishedAt).toLocaleDateString("en-US", {
@@ -42,33 +69,85 @@ export default async function ArticlePage(props: PageProps<"/news/[slug]">) {
 
   return (
     <main className="min-h-screen bg-white">
-      <div className="px-4 py-8 md:px-8 md:py-12">
-        <Link
-          href="/#news"
-          className="inline-flex items-center gap-2 text-[14px] tracking-[-0.04em] uppercase text-[#1f1f1f] mb-10 hover:opacity-60 transition-opacity"
-          style={{ fontFamily: "var(--font-geist-mono)" }}
+      <div style={{ padding: "164px 32px 72px" }}>
+      {/* Back button — 100px below navbar */}
+      <Link
+        href="/#news"
+        className="inline-flex items-center hover:opacity-60 transition-opacity"
+        style={{
+          gap: "10px",
+          fontFamily: "var(--font-inter)",
+          fontSize: "14px",
+          fontWeight: 500,
+          letterSpacing: "-0.04em",
+          textTransform: "uppercase",
+          color: "#000",
+          textDecoration: "none",
+        }}
+      >
+        <svg
+          width="18"
+          height="18"
+          viewBox="0 0 18 18"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          style={{ transform: "rotate(90deg)", flexShrink: 0 }}
         >
-          ← Back
-        </Link>
+          <path
+            d="M9 3.75V14.25M9 14.25L13.5 9.75M9 14.25L4.5 9.75"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
+        BACK
+      </Link>
 
-        <div className="max-w-[800px]">
-          {date && (
-            <p
-              className="text-[12px] tracking-[-0.04em] uppercase text-[#888] mb-3"
-              style={{ fontFamily: "var(--font-geist-mono)" }}
-            >
-              {date}
-            </p>
-          )}
-
-          <h1
-            className="font-light leading-[0.9] tracking-[-0.06em] text-black uppercase text-[40px] md:text-[72px] mb-8"
-            style={{ fontFamily: "var(--font-inter)" }}
+      {/* Hero — 64px gap below back button, max-width 847px */}
+      <div
+        style={{
+          marginTop: "64px",
+          display: "flex",
+          flexDirection: "column",
+          gap: "16px",
+          maxWidth: "847px",
+        }}
+      >
+        {date && (
+          <p
+            style={{
+              fontFamily: "var(--font-inter)",
+              fontSize: "14px",
+              fontWeight: 500,
+              letterSpacing: "-0.04em",
+              textTransform: "uppercase",
+              opacity: 0.4,
+              color: "#000",
+              margin: 0,
+            }}
           >
-            {article.title}
-          </h1>
+            {date}
+          </p>
+        )}
 
-          <div className="relative w-full h-[260px] md:h-[500px] mb-8">
+        <h1
+          style={{
+            fontFamily: "var(--font-inter)",
+            fontSize: "80px",
+            fontWeight: 300,
+            lineHeight: 0.84,
+            letterSpacing: "-0.08em",
+            textTransform: "uppercase",
+            color: "#000",
+            margin: 0,
+          }}
+        >
+          {article.title}
+        </h1>
+
+        {article.image && (
+          <div style={{ position: "relative", width: "100%", height: "469px" }}>
             <Image
               src={urlFor(article.image).width(1200).url()}
               alt={article.title}
@@ -77,24 +156,64 @@ export default async function ArticlePage(props: PageProps<"/news/[slug]">) {
               priority
             />
           </div>
-
-          <p
-            className="text-[16px] leading-[1.5] tracking-[-0.03em] text-[#1f1f1f] mb-8 italic"
-            style={{ fontFamily: "var(--font-inter)" }}
-          >
-            {article.excerpt}
-          </p>
-
-          {article.body?.length > 0 && (
-            <div
-              className="prose prose-lg max-w-none text-[#1f1f1f] leading-[1.6] tracking-[-0.02em]"
-              style={{ fontFamily: "var(--font-inter)" }}
-            >
-              <PortableText value={article.body} />
-            </div>
-          )}
-        </div>
+        )}
       </div>
+
+      {/* Article body — right-aligned, 660px wide (matches Figma) */}
+
+      {(article.excerpt || (article.body && article.body.length > 0)) && (
+        <div
+          style={{
+            width: "100%",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "flex-end",
+            marginTop: "72px",
+          }}
+        >
+          <div style={{ width: "min(660px, 100%)" }}>
+            {article.excerpt && (
+              <p
+                style={{
+                  fontFamily: "var(--font-inter)",
+                  fontSize: "14px",
+                  fontWeight: 500,
+                  letterSpacing: "-0.04em",
+                  color: "#000",
+                  lineHeight: "normal",
+                  marginBottom: "1em",
+                }}
+              >
+                {article.excerpt}
+              </p>
+            )}
+
+            {article.body && article.body.length > 0 && (
+              <div
+                style={{
+                  fontFamily: "var(--font-inter)",
+                  fontSize: "14px",
+                  fontWeight: 500,
+                  letterSpacing: "-0.04em",
+                  color: "#000",
+                  lineHeight: "normal",
+                }}
+              >
+                <PortableText value={article.body} />
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+
+      </div>
+
+      {/* Read more slider — outside padded section so Swiper gets full width */}
+      {related.length > 0 && (
+        <div style={{ marginTop: "100px" }}>
+          <NewsSlider articles={related} label="[ Read more ]" />
+        </div>
+      )}
     </main>
   );
 }
