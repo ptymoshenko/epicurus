@@ -18,7 +18,8 @@ export default function Footer() {
             {/* Left: tagline + button */}
             <div className="flex flex-col gap-3">
               <HeadingReveal
-                theme="#07261E"
+                theme="#000000"
+                scrollStart="top 10%"
                 className="text-[24px] leading-[1.1] tracking-[-0.04em] uppercase text-white"
                 style={{ fontFamily: "var(--font-inter)" }}
               >
