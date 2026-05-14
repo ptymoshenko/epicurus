@@ -1,7 +1,3 @@
-"use client";
-
-import HeadingReveal from "@/components/HeadingReveal";
-
 export default function Footer() {
   const socials = ["Facebook", "Instagram", "X.com", "LinkedIn"];
 
@@ -17,16 +13,14 @@ export default function Footer() {
 
             {/* Left: tagline + button */}
             <div className="flex flex-col gap-3">
-              <HeadingReveal
-                theme="#000000"
-                scrollStart="top 10%"
+              <p
                 className="text-[24px] leading-[1.1] tracking-[-0.04em] uppercase text-white"
                 style={{ fontFamily: "var(--font-inter)" }}
               >
                 <em>Have a </em>
                 <span>project</span>
                 <em> in mind?</em>
-              </HeadingReveal>
+              </p>
               <button
                 className="self-start border border-white text-white text-[14px] font-medium tracking-[-0.04em] uppercase px-4 py-3 rounded-full cursor-pointer"
                 style={{ fontFamily: "var(--font-inter)" }}
